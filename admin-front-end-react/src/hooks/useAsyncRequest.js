@@ -5,8 +5,9 @@ const useAsyncRequest = (length) => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        fetch(
-            `http://localhost:8081/user/all`,
+        fetch( // consider using axios instead
+            // `http://localhost:8081/user/all`, // pass this as a variable
+            `http://localhost:8081/user/allUserInformation`, // pass this as a variable
             {
               method: "GET",
               headers: new Headers({
@@ -17,6 +18,7 @@ const useAsyncRequest = (length) => {
             .then(response => {
               setData(response);
               setLoading(false);
+              console.log(response)
             })
             .catch(error => console.log(error));
     }, [length]);

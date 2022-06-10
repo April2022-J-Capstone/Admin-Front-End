@@ -16,7 +16,6 @@ const App = () => {
       const formattedUsers = data.map((obj, i) => {
         return {
           id: obj.users_Id,
-          enabled: ''+ obj.enabled,
           userName: obj.userName,
           first_name: obj.first_name,
           last_name: obj.last_name,
@@ -38,13 +37,13 @@ const App = () => {
     setUsers([...users, user]);
   };
 
-  // const deactivateUser = (id) => {
-  //   setUsers(users.filter((user) => user.id !== id));
-  // };
+  const deactivateUser = (id) => {
+    setUsers(users.filter((user) => user.id !== id));
+  };
 
   const [editing, setEditing] = useState(false);
   const [deactivating, setDeactivating] = useState(false);
-  const initialUser = { id: null, userName: "", enabled:"",  first_name: "", last_name: "", email: "", phone_number: "", birth_date: "", veteranStatus: "", email_confirmed: "", account_active: "" };
+  const initialUser = { id: null, userName: "",  first_name: "", last_name: "", email: "", phone_number: "", birth_date: "", veteranStatus: "", email_confirmed: "", account_active: "" };
   const [currentUser, setCurrentUser] = useState(initialUser);
 
   const editUser = (id, user) => {
@@ -52,18 +51,7 @@ const App = () => {
     setCurrentUser(user);
   }
 
-  const deactivatingUser = (id, user) => {
-    setDeactivating(true);
-    setCurrentUser(user);
-  }
-
-  const updateDeactivateUser = (oldUser) => {
-    setUsers(
-      users.map(user => (user.id === currentUser.id ? oldUser : user))
-      );
-      setCurrentUser(initialUser);
-      setDeactivating(false);
-  }
+  
 
   const updateUser = (newUser) => {
     setUsers(
@@ -79,16 +67,7 @@ const App = () => {
       <h1>Mega Bytes Admin</h1>
       <div className="row">
         <div className="five columns">
-          {deactivating ? (
-            <div>
-              <h2>Set Active</h2>
-              <DeactivateUserForm
-                currentUser={currentUser}
-                setDeactivating={setDeactivating}
-                updateDeactivateUser={updateDeactivateUser}
-              />
-            </div>
-          ) : editing ? ( 
+          {editing ? (
             <div>
               <h2>Edit user</h2>
               <EditUserForm
@@ -97,7 +76,7 @@ const App = () => {
                 updateUser={updateUser}
               />
             </div>
-          ): (
+          ) : (
             <div>
               <h2>Add user</h2>
               <AddUserForm addUser={addUser} />
@@ -111,7 +90,7 @@ const App = () => {
           <h2>View users</h2>
           <UserTable
             users={users}
-            deactivatingUser={deactivatingUser}
+            deactivateUser={deactivateUser}
             editUser={editUser}
           />
         </div>
