@@ -1,3 +1,4 @@
-import useAsyncRequest from './useAsyncRequest';
+import GetUserInformation from './GetUserInformation';
+import GetRestaurantInformation from './GetRestaurantInformation';
 
-export { useAsyncRequest };
+export { GetUserInformation, GetRestaurantInformation };

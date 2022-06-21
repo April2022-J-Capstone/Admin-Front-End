@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 
-const useAsyncRequest = (length) => {
+const GetUserInformation = (length) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         fetch( // consider using axios instead
             // `http://localhost:8081/user/all`, // pass this as a variable
-            `http://localhost:8081/user/allUserInformation`, // pass this as a variable
+            `http://localhost:8080/user-microservice/user/allUserInformation`, // pass this as a variable
             {
               method: "GET",
               headers: new Headers({
@@ -27,4 +27,4 @@ const useAsyncRequest = (length) => {
 
 }
 
-export default useAsyncRequest;
+export default GetUserInformation;
