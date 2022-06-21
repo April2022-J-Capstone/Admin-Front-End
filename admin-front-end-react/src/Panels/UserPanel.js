@@ -105,48 +105,47 @@ const UserPanel = () => {
 
 
   return (
-    <div className="container">
-      <h1>Mega Bytes Admin</h1>
-      <div className="row">
-        <div className="five columns">
-          {deactivating ? (
-            <div>
-              <h2>Set Active</h2>
-              <DeactivateUserForm
-                currentUser={currentUser}
-                setDeactivating={setDeactivating}
-                updateDeactivateUser={updateDeactivateUser}
-              />
-            </div>
-          ) : editing ? ( 
-            <div>
-              <h2>Edit user</h2>
-              <EditUserForm
-                currentUser={currentUser}
-                setEditing={setEditing}
-                updateUser={updateUser}
-              />
-            </div>
-          ): (
-            <div>
-              <h2>Add user</h2>
-              <AddUserForm addUser={addUser} />
-            </div>
-          )}
-        </div>
-        {loading || !users ? (
-          <p>Loading...</p>
+    <div className="row">
+      <div className="col-md-3">
+        {deactivating ? (
+          <div>
+            <h2>Set Active</h2>
+            <DeactivateUserForm
+              currentUser={currentUser}
+              setDeactivating={setDeactivating}
+              updateDeactivateUser={updateDeactivateUser}
+            />
+          </div>
+        ) : editing ? ( 
+          <div>
+            <h2>Edit user</h2>
+            <EditUserForm
+              currentUser={currentUser}
+              setEditing={setEditing}
+              updateUser={updateUser}
+            />
+          </div>
         ): (
-        <div className="seven columns">
-          <h2>View users</h2>
-          <UserTable
-            users={users}
-            deactivatingUser={deactivatingUser}
-            editUser={editUser}
-          />
-        </div>
+          <div>
+            <h2>Add user</h2>
+            <AddUserForm addUser={addUser} />
+          </div>
         )}
       </div>
+      {loading || !users ? (
+        <div className="col-md-9">
+          <p>Loading...</p>
+        </div>
+      ): (
+      <div className="col-md-9">
+        <h2>View users</h2>
+        <UserTable
+          users={users}
+          deactivatingUser={deactivatingUser}
+          editUser={editUser}
+        />
+      </div>
+      )}
     </div>
   );
 };
