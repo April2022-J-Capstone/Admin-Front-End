@@ -4,3 +4,5 @@ node_modules/
 .DS_Store
 admin-front-end-react/.DS_Store
 admin-front-end-react/src/.DS_Store
+admin-front-end-react/build
+admin-front-end-react/.vscode/
