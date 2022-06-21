@@ -1,28 +1,23 @@
 import { useState, useEffect } from 'react';
+import axios from "axios";
 
 const GetUserInformation = (length) => {
     const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        fetch( // consider using axios instead
-            // `http://localhost:8081/user/all`, // pass this as a variable
-            `http://localhost:8080/user-microservice/user/allUserInformation`, // pass this as a variable
-            {
-              method: "GET",
-              headers: new Headers({
-              })
-            }
-          )
-            .then(res => res.json())
-            .then(response => {
-              setData(response);
+      axios.get(`http://localhost:8081/user/allUserInformation`)
+            .then((response) => {
+              setData(response.data);
               setLoading(false);
-              console.log(response)
-            })
-            .catch(error => console.log(error));
-    }, [length]);
+            }).catch(error => {
+              console.log(error);
+              setError(error);
+            });
+          }, [length]);
 
+    if(error) return `Error: ${error.message}`;
     return [data, loading]
 
 }

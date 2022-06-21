@@ -10,6 +10,7 @@ import { GetUserInformation } from "../hooks";
 const UserPanel = () => {
   const [data, loading] = GetUserInformation(0);
   const [users, setUsers] = useState(null);
+  localStorage.clear()
 
   useEffect(() => {
     if(data) {
@@ -34,13 +35,42 @@ const UserPanel = () => {
 
 
   const addUser = (user) => {
-    user.id = users[users.length-1].id + 1;
-    setUsers([...users, user]);
+    if(users.length != 0){
+      console.log("we have users");
+      user.id = users[users.length-1].id + 1; 
+    } else {
+      console.log("no users");
+      user.id = 1;
+    }
+
+    for(const key in user){
+      console.log(`key(${key}): value(${user[key]})`);
+    }
+
+    let vetStatus = false;
+
+    const formattedUser = {
+        id: user.id,
+        enabled: 'true',
+        userName: user.userName,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        phone_number: user.phone_number,
+        birthdate: user.birthdate,
+        veteran_status: vetStatus,
+        email_confirmed: 'false',
+        account_active: 'true',
+      };
+
+    console.log('formattedUser obj');
+    console.log(formattedUser);
+
+    setUsers([...users, formattedUser]);
+
   };
 
-  // const deactivateUser = (id) => {
-  //   setUsers(users.filter((user) => user.id !== id));
-  // };
+
 
   const [editing, setEditing] = useState(false);
   const [deactivating, setDeactivating] = useState(false);
@@ -76,7 +106,7 @@ const UserPanel = () => {
 
   return (
     <div className="row">
-      <div className="col-md-5">
+      <div className="col-md-3">
         {deactivating ? (
           <div>
             <h2>Set Active</h2>
@@ -103,11 +133,11 @@ const UserPanel = () => {
         )}
       </div>
       {loading || !users ? (
-        <div className="col-md-7">
+        <div className="col-md-9">
           <p>Loading...</p>
         </div>
       ): (
-      <div className="col-md-7">
+      <div className="col-md-9">
         <h2>View users</h2>
         <UserTable
           users={users}
