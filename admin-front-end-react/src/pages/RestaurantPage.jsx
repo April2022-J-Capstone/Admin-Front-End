@@ -5,10 +5,9 @@ import AddRestaurantForm from "../forms/AddRestaurantForm";
 import EditRestaurantForm from "../forms/EditRestaurantForm";
 import DeactivateUserForm from "../forms/DeactivateUserForm";
 
-
 import { GetRestaurantInformation } from "../hooks";
 
-const RestaurantPanel = () => {
+const RestaurantPage = () => {
   const [data, loading] = GetRestaurantInformation(0);
   const [restaurants, setRestaurants] = useState(null);
 
@@ -121,4 +120,4 @@ const RestaurantPanel = () => {
   );
 };
 
-export default RestaurantPanel;
+export default RestaurantPage;
