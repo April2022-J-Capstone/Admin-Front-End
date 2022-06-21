@@ -8,10 +8,9 @@ const App = () => {
   return (
     <div className="container-lg">
       <h1>MegaBytes Admin</h1>
-      <div className="nav nav-dark">
+      <div className="navbar navbar-dark">
 
       </div>
-      
       <RestaurantPanel></RestaurantPanel>
     </div>
   );
