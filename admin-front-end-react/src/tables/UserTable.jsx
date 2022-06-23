@@ -30,8 +30,8 @@ const UserTable = (props) => {
                             activeState = "Activate";
                         }
                         return (
-                            <tr key={user.id}>
-                                <td>{user.id}</td>
+                            <tr key={id}>
+                                <td>{id}</td>
                                 <td>{enabled}</td>
                                 <td>{userName}</td>
                                 <td>{first_name}</td>
