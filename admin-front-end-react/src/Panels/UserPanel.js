@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import UserTable from "../tables/UserTable";
 import AddUserForm from "../forms/AddUserForm";
 import EditUserForm from "../forms/EditUserForm";
 import DeactivateUserForm from "../forms/DeactivateUserForm";
 
 
 import { GetUserInformation } from "../hooks";
+import UserDisplay from "../tables/UserDisplay";
 
 const UserPanel = () => {
   const [data, loading] = GetUserInformation(0);
@@ -35,7 +35,7 @@ const UserPanel = () => {
 
 
   const addUser = (user) => {
-    if(users.length != 0){
+    if(users.length !== 0){
       console.log("we have users");
       user.id = users[users.length-1].id + 1; 
     } else {
@@ -139,7 +139,7 @@ const UserPanel = () => {
       ): (
       <div className="col-md-9">
         <h2>View users</h2>
-        <UserTable
+        <UserDisplay
           users={users}
           deactivatingUser={deactivatingUser}
           editUser={editUser}

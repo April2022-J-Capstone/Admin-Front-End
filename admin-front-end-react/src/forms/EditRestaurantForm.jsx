@@ -88,8 +88,12 @@ const EditRestaurantForm = (props) => {
         <label>Location ID</label>
         <input className="u-full-width" id="location_id" type="text" value={restaurant.location_id} name="location_id" placeholder = "Location ID" onChange={handleChange} />
 
-        <button className="button-primary" id="submitButton" type="submit" onClick={handleSubmit} >Save Restaurant</button>
-        <button type="submit" onClick={() => props.setEditing(false)} >Cancel</button>
+        <div className='d-flex'>
+          <button className="button-primary" id="submitButton" type="submit" onClick={handleSubmit} >Save Restaurant</button>
+          <div className='flex-fill'></div>
+          <button type="submit" onClick={() => props.setEditing(false)} >Cancel</button>
+        </div>
+        
       </form>
     )
 }
