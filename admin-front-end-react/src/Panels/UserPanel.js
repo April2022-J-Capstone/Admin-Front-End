@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import UserTable from "../tables/UserTable";
 import AddUserForm from "../forms/AddUserForm";
 import EditUserForm from "../forms/EditUserForm";
 import DeactivateUserForm from "../forms/DeactivateUserForm";
@@ -36,7 +35,7 @@ const UserPanel = () => {
 
 
   const addUser = (user) => {
-    if(users.length != 0){
+    if(users.length !== 0){
       console.log("we have users");
       user.id = users[users.length-1].id + 1; 
     } else {

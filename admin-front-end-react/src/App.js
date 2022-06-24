@@ -11,7 +11,7 @@ const App = () => {
     e.preventDefault();
     const {name, value} = e.target;
 
-    if(name == "restaurant"){
+    if(name === "restaurant"){
       setRestaurantView(true);
       setUserView(false);
     } else {
