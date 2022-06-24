@@ -6,6 +6,7 @@ import DeactivateUserForm from "../forms/DeactivateUserForm";
 
 
 import { GetUserInformation } from "../hooks";
+import UserDisplay from "../tables/UserDisplay";
 
 const UserPanel = () => {
   const [data, loading] = GetUserInformation(0);
@@ -139,7 +140,7 @@ const UserPanel = () => {
       ): (
       <div className="col-md-9">
         <h2>View users</h2>
-        <UserTable
+        <UserDisplay
           users={users}
           deactivatingUser={deactivatingUser}
           editUser={editUser}

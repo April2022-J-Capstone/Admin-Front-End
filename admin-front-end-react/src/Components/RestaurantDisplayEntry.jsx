@@ -20,7 +20,6 @@ const RestaurantDisplayEntry = (props) => {
           <p className="p-2"><b>State:</b> {props.restaurant.state}</p>
           <p className="p-2"><b>ZIP Code:</b> {props.restaurant.zip_code}</p>
           <p className="p-2"><b>Tags:</b> {props.restaurant.restaurantTags.join(', ')}</p>
-          
         </div>
       </div>
     </div>
