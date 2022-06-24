@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import RestaurantTable from "../tables/RestaurantTable";
 
 import AddRestaurantForm from "../forms/AddRestaurantForm";
 import EditRestaurantForm from "../forms/EditRestaurantForm";
@@ -7,6 +6,7 @@ import DeactivateUserForm from "../forms/DeactivateUserForm";
 
 
 import { GetRestaurantInformation } from "../hooks";
+import RestaurantDisplay from "../tables/RestaurantDisplay";
 
 const RestaurantPanel = () => {
   const [data, loading] = GetRestaurantInformation(0);
@@ -110,7 +110,7 @@ const RestaurantPanel = () => {
       ): (
       <div className="col-md-9">
         <h2>View restaurants</h2>
-        <RestaurantTable
+        <RestaurantDisplay
           restaurants={restaurants}
           deactivatingRestaurant={deactivatingRestaurant}
           editRestaurant={editRestaurant}
