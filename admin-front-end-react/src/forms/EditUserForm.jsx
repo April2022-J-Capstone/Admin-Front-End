@@ -85,7 +85,7 @@ const EditUserForm = (props) => {
                 console.log('setting veteranStatus: ', veteran_status);
                 break;
             case 'email_confirmed':
-                if(email_confirmed.value == true){
+                if(email_confirmed.value === true){
                     setEmailConfirmed(false);
                 } else {
                     setEmailConfirmed(true);

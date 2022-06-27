@@ -14,7 +14,6 @@ const TableEntry = (props) => {
         <ExpandEntry
           entity = {props.entity}
         />
-
       </div>
     </div>
   )

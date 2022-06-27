@@ -39,4 +39,9 @@ class user extends React.Component {
     "veteran_status",
     "confirmed"
   ];
+
+  set(userData) {
+    this.id = userData.id;
+    
+  }
 };
