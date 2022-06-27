@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import UserPanel from "./Panels/UserPanel";
-import RestaurantPanel from "./Panels/RestaurantPanel";
+import UserPanel from "./pages/UserPanel";
+import RestaurantPanel from "./pages/RestaurantPanel";
 
 const App = () => {
   const [restaurantView, setRestaurantView] = useState(true);
