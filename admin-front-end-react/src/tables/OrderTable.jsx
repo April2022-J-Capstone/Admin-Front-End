@@ -33,7 +33,7 @@ const OrderTable = (props) => {
                 })
             ) : (
                 <tr>
-                    <td colSpan={4}>No restaurants found</td>
+                    <td colSpan={4}>No orders found</td>
                 </tr>
             )
             }

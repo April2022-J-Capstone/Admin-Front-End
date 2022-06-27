@@ -38,7 +38,7 @@ const App = () => {
       <h1>MegaBytes Admin</h1>
       <div className="navbar navbar-dark">
         <button onClick={handleClick} name="restaurant">Restaurants</button>
-        <button onClick={handleClick} name="order">Users</button>
+        <button onClick={handleClick} name="order">Orders</button>
         <button onClick={handleClick} name="user">Users</button>
       </div>
         { restaurantView ? (<RestaurantPanel></RestaurantPanel>)
