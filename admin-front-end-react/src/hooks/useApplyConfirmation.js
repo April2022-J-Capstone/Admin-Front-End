@@ -1,12 +1,10 @@
-const getUrl = (p) => {
-  return "http://localhost:8081" + p;
-};
+import { getUrl } from "../utils";
 
 // Requests the backend to apply a confirmation with the specified token.
 const applyConfirmation = (token) => {
-  const url = getUrl('/confirmation?token=' + token);
+  const url = getUrl('/user-service/user/confirmation?token=' + token);
 
-  return fetch(url, { method: 'PUT' })
+  return fetch(url, { method: 'PUT', headers: new Headers({ 'content-type': 'application/json' }) })
     .then(res => {
       if (res.ok) {
         return Promise.resolve();

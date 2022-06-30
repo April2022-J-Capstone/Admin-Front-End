@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import UserTable from "../tables/UserTable";
-import AddUserForm from "../forms/AddUserForm";
-import EditUserForm from "../forms/EditUserForm";
-import DeactivateUserForm from "../forms/DeactivateUserForm";
-
-
+import { AddUserForm, EditUserForm, DeactivateUserForm } from "../forms";
+import { LogoutButton, SendConfirmationButton } from "../components";
 import { GetUserInformation } from "../hooks";
 
+
 const UserPage = () => {
+  const navigate = useNavigate();
   const [data, loading] = GetUserInformation(0);
   const [users, setUsers] = useState(null);
 
@@ -75,48 +75,54 @@ const UserPage = () => {
 
 
   return (
-    <div className="row">
-      <div className="col-md-5">
-        {deactivating ? (
-          <div>
-            <h2>Set Active</h2>
-            <DeactivateUserForm
-              currentUser={currentUser}
-              setDeactivating={setDeactivating}
-              updateDeactivateUser={updateDeactivateUser}
-            />
-          </div>
-        ) : editing ? ( 
-          <div>
-            <h2>Edit user</h2>
-            <EditUserForm
-              currentUser={currentUser}
-              setEditing={setEditing}
-              updateUser={updateUser}
-            />
+    <div>
+      <h1>MegaBytes Admin</h1>
+      <LogoutButton onLogout={_ => navigate('/login')} />
+      <SendConfirmationButton onSend={_ => console.log("Successfully sent confirmation!") } />
+      <div className="row">
+        <div className="col-md-5">
+          {deactivating ? (
+            <div>
+              <h2>Set Active</h2>
+              <DeactivateUserForm
+                currentUser={currentUser}
+                setDeactivating={setDeactivating}
+                updateDeactivateUser={updateDeactivateUser}
+              />
+            </div>
+          ) : editing ? ( 
+            <div>
+              <h2>Edit user</h2>
+              <EditUserForm
+                currentUser={currentUser}
+                setEditing={setEditing}
+                updateUser={updateUser}
+              />
+            </div>
+          ): (
+            <div>
+              <h2>Add user</h2>
+              <AddUserForm addUser={addUser} />
+            </div>
+          )}
+        </div>
+        {loading || !users ? (
+          <div className="col-md-7">
+            <p>Loading...</p>
           </div>
         ): (
-          <div>
-            <h2>Add user</h2>
-            <AddUserForm addUser={addUser} />
-          </div>
+        <div className="col-md-7">
+          <h2>View users</h2>
+          <UserTable
+            users={users}
+            deactivatingUser={deactivatingUser}
+            editUser={editUser}
+          />
+        </div>
         )}
       </div>
-      {loading || !users ? (
-        <div className="col-md-7">
-          <p>Loading...</p>
-        </div>
-      ): (
-      <div className="col-md-7">
-        <h2>View users</h2>
-        <UserTable
-          users={users}
-          deactivatingUser={deactivatingUser}
-          editUser={editUser}
-        />
-      </div>
-      )}
     </div>
+
   );
 };
 

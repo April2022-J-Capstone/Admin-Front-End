@@ -29,7 +29,7 @@ const ConfirmationForm = () => {
         .catch(_ => {
           setStatus(STATUS_ERROR);
         });
-    }, [ location.search ]);
+    }, [ applyConfirmation, location.search ]);
 
     const submit = (event) => {
       navigate('/login');

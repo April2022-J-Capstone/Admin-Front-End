@@ -1,6 +1,6 @@
 // Networkless logout that deletes the stored authentication.
 const useLogout = () => () => {
-  localStorage.removeItem('loginToken');
+  localStorage.removeItem('login');
   return Promise.resolve();
 };
 

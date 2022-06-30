@@ -1,12 +1,10 @@
-const getUrl = (p) => {
-  return "http://localhost:8081" + p;
-};
+import { getUrl } from '../utils';
 
 // Requests the backend to send a reset password message to the specified email.
 const sendPasswordReset = (email) => {
-  const url = getUrl('/resetPasswordMessage');
+  const url = getUrl('/user-service/user/resetPasswordMessage');
 
-  return fetch(url, { method: 'POST', body: { email: email } })
+  return fetch(url, { method: 'POST', headers: new Headers({ 'content-type': 'application/json' }), body: JSON.stringify({ email: email }) })
     .then(res => {
       if (res.ok) {
         return Promise.resolve();

@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
+import { getUrl } from '../utils';
 
 const GetUserInformation = (length) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        fetch( // consider using axios instead
-            // `http://localhost:8081/user/all`, // pass this as a variable
-            `http://localhost:8080/user-microservice/user/allUserInformation`, // pass this as a variable
+        fetch(getUrl("/user-service/user/all"),
             {
               method: "GET",
               headers: new Headers({

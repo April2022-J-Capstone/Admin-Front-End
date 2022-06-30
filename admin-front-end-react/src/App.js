@@ -6,7 +6,6 @@ import { ConfirmationPage, ForgotPasswordPage, LandingPage, LoginPage, ResetPass
 const App = () => {
   return (
     <div className="container-lg">
-      <h1>MegaBytes Admin</h1>
       <div className="navbar navbar-dark"></div>
       <BrowserRouter>
         <Routes>

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
+import { getUrl } from '../utils';
 
 const GetRestaurantInformation = (length) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        fetch(
-            `http://localhost:8080/restaurant-service/restaurants`, // pass this as a variable
+        fetch(getUrl("/restaurant-service/restaurants"),
             {
               method: "GET",
               headers: new Headers({

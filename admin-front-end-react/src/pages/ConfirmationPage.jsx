@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ConfirmationForm from '../forms/ConfirmationForm';
+import { ConfirmationForm } from "../forms";
 
 const ConfirmationPage = (props) => {
     return (

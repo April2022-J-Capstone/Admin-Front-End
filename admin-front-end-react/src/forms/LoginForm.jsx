@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
-import useLogin from '../hooks/useLogin';
+import { useLogin } from "../hooks";
 import { FormButton, FormCard, FormInput } from '../components';
 
 const LoginForm = () => {
@@ -11,7 +10,7 @@ const LoginForm = () => {
     const submit = (event) => {
       login(event.target.username.value, event.target.password.value)
         .then(() => {
-          navigate("/admin");
+          navigate("/user");
         })
         .catch(error => {
           console.error("Login failed");

@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import useCheckAuth from '../hooks/useCheckAuth';
-import LoginForm from '../forms/LoginForm';
+import { useCheckAuth } from '../hooks';
+import { LoginForm } from '../forms';
 
 const LoginPage = (props) => {
     const checkAuth = useCheckAuth();
@@ -12,7 +11,7 @@ const LoginPage = (props) => {
         checkAuth({}, false)
             .then(() => {
                 // already authenticated, redirect to the home page
-                navigate('/admin');
+                navigate('/user');
             })
             .catch(() => {
                 // not authenticated, stay on the login page

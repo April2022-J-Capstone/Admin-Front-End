@@ -1,9 +1,7 @@
-// Quick networkless check if the user is logged in.
+import { getStoredLogin } from '../utils';
+
 const useCheckAuth = () => () => {
-  // TODO: Decode the login token and use moment.js to check if it is expired.
-  return localStorage.getItem('loginToken')
-        ? Promise.resolve()
-        : Promise.reject();
+  return getStoredLogin();
 };
 
 export default useCheckAuth;

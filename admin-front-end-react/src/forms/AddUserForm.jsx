@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-
+import React, { useState } from 'react';
 
 const AddUserForm = (props) => {
     const initUser = { id: null, userName: '', password: '', first_name: "", last_name: "", email: "", phone_number: "", birthdate: "", veteran_status: '', email_confirmed: '', account_active: ''};

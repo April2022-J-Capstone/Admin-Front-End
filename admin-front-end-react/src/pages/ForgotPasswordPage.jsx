@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ForgotPasswordForm from '../forms/ForgotPasswordForm';
+import { ForgotPasswordForm } from '../forms';
 
 const ForgotPasswordPage = (props) => {
     return (
