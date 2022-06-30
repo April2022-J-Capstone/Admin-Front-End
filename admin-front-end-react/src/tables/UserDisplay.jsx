@@ -1,32 +1,26 @@
 import React from "react";
-import UserDisplayEntry from "../Components/UserDisplayEntry";
+import { UserDisplayEntry } from "../components";
 
 const UserDisplay = (props) => {
-  let activeState = "";
+  const usersEmpty = (
+    <div>
+      <p>No users found</p>
+    </div>
+  );
   return (
     <div className="d-flex flex-column justify-content-center">
       {
-        props.users.length > 0 ? (
-          props.users.map (user => {
-            if(user.account_active === "true"){
-              activeState = "Deactivate"
-            } else {
-              activeState = "Activate";
-            }
-            return (
-              <UserDisplayEntry 
-              user = {user}
-              editUser = {props.editUser}
-              deactivatingUser = {props.deactivatingUser}
-              activeState = {activeState}
-              />
-            )
-          })
-        ) : (
-          <div>
-            <p>No users found</p>
-          </div>
-        )   
+        props.users.length === 0 
+          ? usersEmpty : 
+          props.users.map(user => (
+            <UserDisplayEntry 
+            key = {user.id}
+            user = {user}
+            editUser = {props.editUser}
+            deactivatingUser = {props.deactivatingUser}
+            activeState = {user.account_active === "true" ? "Deactivate" : "Activate"}
+            />
+        ))   
       }
     </div>
   )

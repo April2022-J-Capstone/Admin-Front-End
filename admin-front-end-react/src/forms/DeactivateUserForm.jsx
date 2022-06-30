@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { getUrl } from '../utils';
 
 const DeactivateUserForm = (props) => {
 
@@ -80,7 +81,7 @@ const DeactivateUserForm = (props) => {
             };
 
             axios
-                .post("http://localhost:8081/user/set-user-active-information", {
+                .post(getUrl("/user-service/user/set-user-active-information"), {
                     users_Id: data.users_Id,
                     userName: data.userName,
                     enabled: data.enabled,

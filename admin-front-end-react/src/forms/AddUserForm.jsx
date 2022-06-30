@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-
+import { getUrl } from '../utils';
 
 const AddUserForm = (props) => {
     const initUser = { id: null, userName: "", password: "", enabled: "", first_name: "", last_name: "", email: "", phone_number: "", birthdate: "", veteran_status: "", email_confirmed: "", account_active: ""};
@@ -19,11 +19,6 @@ const AddUserForm = (props) => {
     const [communication_type_id] = useState("");
     const [account_active] = useState(true);
     const [disabledStatus, setDisabledStatus] = useState(true);
-
-    useEffect(() => {
-
-    }, [props])
-
 
     const handleChange= e => {
         const {name, value} = e.target;
@@ -113,7 +108,7 @@ const AddUserForm = (props) => {
         const data = { userName, password,  enabled, first_name, last_name, email, phone_number, birthdate, veteran_status, email_confirmed, communication_type_id, account_active};
         console.log('data', data);
             axios
-                .post("http://localhost:8081/user/create-user-information", {
+                .post(getUrl("/user-service/user/create-user-information"), {
                     userName: data.userName,
                     password: data.password,
                     enabled: data.enabled,

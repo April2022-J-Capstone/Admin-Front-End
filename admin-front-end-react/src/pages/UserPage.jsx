@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
-import AddUserForm from "../forms/AddUserForm";
-import EditUserForm from "../forms/EditUserForm";
-import DeactivateUserForm from "../forms/DeactivateUserForm";
-
-
-import { GetUserInformation } from "../hooks";
+import { useNavigate } from "react-router";
+import { AddUserForm, EditUserForm, DeactivateUserForm } from "../forms";
+import { NavButton, LogoutButton, SendConfirmationButton } from "../components";
+import { GetUserInformation, useCheckAuth } from "../hooks";
 import UserDisplay from "../tables/UserDisplay";
 
-const UserPanel = () => {
+const UserPage = () => {
+  const checkAuth = useCheckAuth();
+  const navigate = useNavigate();
   const [data, loading] = GetUserInformation(0);
   const [users, setUsers] = useState(null);
-  localStorage.clear()
+  
+  useEffect(_ => {
+    checkAuth({}, false)
+        .catch(_ => navigate('/login'));
+  }, [ checkAuth, navigate ]);
 
   useEffect(() => {
     if(data) {
@@ -70,8 +74,6 @@ const UserPanel = () => {
 
   };
 
-
-
   const [editing, setEditing] = useState(false);
   const [deactivating, setDeactivating] = useState(false);
   const initialUser = { id: null, userName: "", enabled:"",  first_name: "", last_name: "", email: "", phone_number: "", birth_date: "", veteranStatus: "", email_confirmed: "", account_active: "" };
@@ -103,51 +105,59 @@ const UserPanel = () => {
       setEditing(false);
   };
 
-
   return (
-    <div className="row">
-      <div className="col-md-3">
-        {deactivating ? (
-          <div>
-            <h2>Set Active</h2>
-            <DeactivateUserForm
-              currentUser={currentUser}
-              setDeactivating={setDeactivating}
-              updateDeactivateUser={updateDeactivateUser}
-            />
-          </div>
-        ) : editing ? ( 
-          <div>
-            <h2>Edit user</h2>
-            <EditUserForm
-              currentUser={currentUser}
-              setEditing={setEditing}
-              updateUser={updateUser}
-            />
+    <div>
+      <div className="navbar navbar-dark">
+        <NavButton link="/restaurant" name="restaurant">Restaurants</NavButton>
+        <NavButton link="/user" name="user">Users</NavButton>
+        <LogoutButton onLogout={_ => navigate('/login')} />
+        <SendConfirmationButton onSend={_ => console.log("Successfully sent confirmation!") } />
+      </div>
+      <h1>MegaBytes Admin</h1>
+      <div className="row">
+        <div className="col-md-3">
+          {deactivating ? (
+            <div>
+              <h2>Set Active</h2>
+              <DeactivateUserForm
+                currentUser={currentUser}
+                setDeactivating={setDeactivating}
+                updateDeactivateUser={updateDeactivateUser}
+              />
+            </div>
+          ) : editing ? ( 
+            <div>
+              <h2>Edit user</h2>
+              <EditUserForm
+                currentUser={currentUser}
+                setEditing={setEditing}
+                updateUser={updateUser}
+              />
+            </div>
+          ): (
+            <div>
+              <h2>Add user</h2>
+              <AddUserForm addUser={addUser} />
+            </div>
+          )}
+        </div>
+        {loading || !users ? (
+          <div className="col-md-9">
+            <p>Loading...</p>
           </div>
         ): (
-          <div>
-            <h2>Add user</h2>
-            <AddUserForm addUser={addUser} />
-          </div>
+        <div className="col-md-9">
+          <h2>View users</h2>
+          <UserDisplay
+            users={users}
+            deactivatingUser={deactivatingUser}
+            editUser={editUser}
+          />
+        </div>
         )}
       </div>
-      {loading || !users ? (
-        <div className="col-md-9">
-          <p>Loading...</p>
-        </div>
-      ): (
-      <div className="col-md-9">
-        <h2>View users</h2>
-        <UserDisplay
-          users={users}
-          deactivatingUser={deactivatingUser}
-          editUser={editUser}
-        />
-      </div>
-      )}
     </div>
   );
 };
 
-export default UserPanel;
+export default UserPage;

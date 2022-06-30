@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { getUrl } from '../utils';
 
 const EditUserForm = (props) => {
 
@@ -106,7 +107,7 @@ const EditUserForm = (props) => {
         const data = { users_Id, first_name, last_name, email, phone_number, birthdate, veteran_status, email_confirmed, account_active};
     
         axios
-            .post("http://localhost:8081/user/update-user-information", {
+            .post(getUrl("/user-service/user/update-user-information"), {
                 users_Id: data.users_Id,
                 first_name: data.first_name,
                 last_name: data.last_name,

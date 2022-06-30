@@ -1,5 +1,5 @@
 import React from "react";
-import RestaurantDisplayEntry from "../Components/RestaurantDisplayEntry";
+import { RestaurantDisplayEntry } from "../components";
 
 const RestaurantDisplay = (props) => {
   return (
@@ -9,6 +9,7 @@ const RestaurantDisplay = (props) => {
           props.restaurants.map (restaurant => {
             return (
               <RestaurantDisplayEntry 
+              key = {restaurant.id}
               restaurant = {restaurant}
               editRestaurant = {props.editRestaurant}
               />

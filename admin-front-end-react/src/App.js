@@ -1,44 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import UserPanel from "./Panels/UserPanel";
-import RestaurantPanel from "./Panels/RestaurantPanel";
+import { ConfirmationPage, ForgotPasswordPage, LandingPage, LoginPage, ResetPasswordPage, RestaurantPage, UserPage } from "./pages";
 
 const App = () => {
-  const [restaurantView, setRestaurantView] = useState(true);
-  const [userView, setUserView] = useState(false);
-
-  const handleClick = e => {
-    e.preventDefault();
-    const {name, value} = e.target;
-
-    if(name === "restaurant"){
-      setRestaurantView(true);
-      setUserView(false);
-    } else {
-      setUserView(true);
-      setRestaurantView(false);
-    }
-
-  }
-
-  
   return (
     <div className="container-lg">
-      <h1>MegaBytes Admin</h1>
-      <div className="navbar navbar-dark">
-        <button onClick={handleClick} name="restaurant">Restaurants</button>
-        <button onClick={handleClick} name="user">Users</button>
-      </div>
-        { restaurantView ? (
-            <RestaurantPanel></RestaurantPanel>
-          ) : (
-            <UserPanel></UserPanel>
-          )
-
-        }
-    </div>
-  );
-
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<LandingPage/>} />
+          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/forgotPassword" element={<ForgotPasswordPage/>} />
+          <Route path="/confirmation" element={<ConfirmationPage/>} />
+          <Route path="/resetPassword" element={<ResetPasswordPage/>} />
+          <Route path="/user" element={<UserPage/>} />
+          <Route path="/restaurant" element={<RestaurantPage/>} />
+        </Routes>
+      </BrowserRouter>
+    </div>);
 };
 
 export default App;

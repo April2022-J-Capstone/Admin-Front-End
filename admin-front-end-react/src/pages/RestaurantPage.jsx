@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
-
-import AddRestaurantForm from "../forms/AddRestaurantForm";
-import EditRestaurantForm from "../forms/EditRestaurantForm";
-import DeactivateUserForm from "../forms/DeactivateUserForm";
-
-
-import { GetRestaurantInformation } from "../hooks";
+import { useNavigate } from "react-router";
+import { AddRestaurantForm, EditRestaurantForm, DeactivateUserForm } from "../forms";
+import { GetRestaurantInformation, useCheckAuth } from "../hooks";
+import { NavButton, LogoutButton, SendConfirmationButton } from "../components";
 import RestaurantDisplay from "../tables/RestaurantDisplay";
 
-const RestaurantPanel = () => {
+const RestaurantPage = () => {
+  const checkAuth = useCheckAuth();
+  const navigate = useNavigate();
   const [data, loading] = GetRestaurantInformation(0);
   const [restaurants, setRestaurants] = useState(null);
+
+  useEffect(_ => {
+    checkAuth({}, false)
+        .catch(_ => navigate('/login'));
+  }, [ checkAuth, navigate ]);
 
   useEffect(() => {
     if(data) {
@@ -74,51 +78,59 @@ const RestaurantPanel = () => {
       setEditing(false);
   };
 
-
   return (
-    <div className="row">
-      <div className="col-md-3">
-        {deactivating ? (
-          <div>
-            <h2>Set Active</h2>
-            <DeactivateUserForm
-              currentUser={currentRestaurant}
-              setDeactivating={setDeactivating}
-              updateDeactivateUser={updateDeactivateRestaurant}
-            />
-          </div>
-        ) : editing ? ( 
-          <div>
-            <h2>Edit Restaurant</h2>
-            <EditRestaurantForm
-              currentRestaurant={currentRestaurant}
-              setEditing={setEditing}
-              updateRestaurant={updateRestaurant}
-            />
+    <div>
+      <div className="navbar navbar-dark">
+        <NavButton link="/restaurant" name="restaurant">Restaurants</NavButton>
+        <NavButton link="/user" name="user">Users</NavButton>
+        <LogoutButton onLogout={_ => navigate('/login')} />
+        <SendConfirmationButton onSend={_ => console.log("Successfully sent confirmation!") } />
+      </div>
+      <h1>MegaBytes Admin</h1>
+      <div className="row">
+        <div className="col-md-3">
+          {deactivating ? (
+            <div>
+              <h2>Set Active</h2>
+              <DeactivateUserForm
+                currentUser={currentRestaurant}
+                setDeactivating={setDeactivating}
+                updateDeactivateUser={updateDeactivateRestaurant}
+              />
+            </div>
+          ) : editing ? ( 
+            <div>
+              <h2>Edit Restaurant</h2>
+              <EditRestaurantForm
+                currentRestaurant={currentRestaurant}
+                setEditing={setEditing}
+                updateRestaurant={updateRestaurant}
+              />
+            </div>
+          ): (
+            <div>
+              <h2>Add Restaurant</h2>
+              <AddRestaurantForm addRestaurant={addRestaurant} />
+            </div>
+          )}
+        </div>
+        {loading || !restaurants ? (
+          <div className="col-md-9">
+            <p>Loading...</p>
           </div>
         ): (
-          <div>
-            <h2>Add Restaurant</h2>
-            <AddRestaurantForm addRestaurant={addRestaurant} />
-          </div>
+        <div className="col-md-9">
+          <h2>View restaurants</h2>
+          <RestaurantDisplay
+            restaurants={restaurants}
+            deactivatingRestaurant={deactivatingRestaurant}
+            editRestaurant={editRestaurant}
+          />
+        </div>
         )}
       </div>
-      {loading || !restaurants ? (
-        <div className="col-md-9">
-          <p>Loading...</p>
-        </div>
-      ): (
-      <div className="col-md-9">
-        <h2>View restaurants</h2>
-        <RestaurantDisplay
-          restaurants={restaurants}
-          deactivatingRestaurant={deactivatingRestaurant}
-          editRestaurant={editRestaurant}
-        />
-      </div>
-      )}
     </div>
   );
 };
 
-export default RestaurantPanel;
+export default RestaurantPage;

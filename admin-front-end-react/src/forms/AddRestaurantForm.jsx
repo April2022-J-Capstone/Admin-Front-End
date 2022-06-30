@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-
+import React, { useState } from 'react';
 
 const AddRestaurantForm = (props) => {
     const initRestaurant = {owner_id: '', name: '', location_name: '', address: '', city: '', state: '', zip_code: ''}
