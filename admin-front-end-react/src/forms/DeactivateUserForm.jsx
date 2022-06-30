@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const DeactivateUserForm = (props) => {
 
@@ -22,6 +23,7 @@ const DeactivateUserForm = (props) => {
     const [account_active, setAccountActive] = useState(props.currentUser.account_active)
     const [confirmUserName, setConfirmUserName] = useState("");
     const [activeState, setActiveState] = useState("");
+    const [disabledStatus, setDisabledStatus] = useState(true);
 
     const handleChange = e => {
         const {name, value} = e.target;
@@ -45,9 +47,8 @@ const DeactivateUserForm = (props) => {
                 setConfirmUserName(value);
                 console.log("setting to false");
                 if(userNameInput.value == deactivateUserInput.value){
-                    console.log('match = green')
-                    button.style.backgroundColor = "Green";
-                    button.disabled = false;
+                    button.style.opacity = "1";
+                    setDisabledStatus(false);
                 }
                 break;
             case 'activateUser':
@@ -56,34 +57,15 @@ const DeactivateUserForm = (props) => {
                 setConfirmUserName(value);
                 console.log("setting to true");
                 if(userNameInput.value == activateUserInput.value){
-                    console.log('match = green')
-                    button.style.backgroundColor = "Green";
-                    button.disabled = false;
+                    button.style.opacity = "1";
+                    setDisabledStatus(false);
                 }
                 break;
             default:
                 console.log("Your input is not valid. Please try again.")
         }
 
-        // if(deactivateUserInput.value != ''){
-        //     if(userNameInput.value == deactivateUserInput.value){
-        //         console.log('match = green')
-        //         button.style.backgroundColor = "Green";
-        //         button.disabled = false;
-        //     }
-        // }
-        // if(activateUserInput.value != ''){
-        //     if(userNameInput.value == activateUserInput.value){
-        //         console.log('match = green')
-        //         button.style.backgroundColor = "Green";
-        //         button.disabled = false;
-        //     }
-        // }
-    
-
-
         setUser({...user, [name]: value});
-
     }
 
     const handleSubmit = e => {
@@ -96,17 +78,22 @@ const DeactivateUserForm = (props) => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)
             };
-            fetch("http://localhost:8081/user/set-user-active-information", requestOptions)
-            .then(response => response.json())
-            .then(res => console.log(res));
+
+            axios
+                .post("http://localhost:8081/user/set-user-active-information", {
+                    users_Id: data.users_Id,
+                    userName: data.userName,
+                    enabled: data.enabled,
+                    account_active: data.account_active
+                })
     
-            // window.location.reload(false);
+            window.location.reload();
     }
 
     return (
         
         <form>
-            <label>UserId(read only)</label>
+             <label>UserId(read only)</label>
             <input className="u-full-width" type="text" value={user.id} name="id" readOnly />
             <label>UserName(read only)</label>
             <input className="u-full-width" id="userName" type="text" value={user.userName} name="userName" readOnly />
@@ -121,8 +108,8 @@ const DeactivateUserForm = (props) => {
                     <input className="u-full-width" id ="activateUser" type="text" value={confirmUserName} name="activateUser" placeholder="Type Username" onChange={handleChange} />
                 </div>
             )}
-            <button className="button-primary" id="submitButton" type="submit" onClick={handleSubmit} style={{ backgroundColor: 'red' }}  >{activeState} User</button>
-            <button type="submit" onClick={() => props.setDeactivating(false)} >Cancel</button>
+            <button className="button-primary" id="submitButton" type="submit" onClick={handleSubmit}  style={{ opacity: 0.2 }} disabled={disabledStatus} >{activeState} User</button>
+            <button type="submit"  onClick={() => props.setDeactivating(false)} >Cancel</button>
         </form>
     )
 }

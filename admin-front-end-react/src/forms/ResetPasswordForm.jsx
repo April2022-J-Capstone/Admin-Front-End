@@ -27,7 +27,7 @@ const ResetPasswordForm = () => {
 
     return (
         <FormCard onSubmit={submit}>
-          <FormInput type="password" name="password" placeholder="New Password"/>
+          <FormInput type="password" name="password" placeholder="New Password" autocomplete="new-password" />
           <FormButton type="submit">Reset Password</FormButton>
         </FormCard>
     );

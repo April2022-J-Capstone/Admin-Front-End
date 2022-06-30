@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLogin } from "../hooks";
+
+import { useLogin } from '../hooks';
 import { FormButton, FormCard, FormInput } from '../components';
 
 const LoginForm = () => {
@@ -21,8 +22,8 @@ const LoginForm = () => {
 
     return (
         <FormCard onSubmit={submit}>
-          <FormInput type="text" name="username" placeholder="username"/>
-          <FormInput type="password" name="password" placeholder="password"/>
+          <FormInput type="text" name="username" placeholder="username" autocomplete="username"/>
+          <FormInput type="password" name="password" placeholder="password" autocomplete="current-password"/>
           <FormButton type="submit">Login</FormButton>
           <Link to="/forgotPassword"><FormButton>Forgot Password</FormButton></Link>
         </FormCard>

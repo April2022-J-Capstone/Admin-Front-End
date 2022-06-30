@@ -17,7 +17,7 @@ const StyledInput = styled.input`
 const FormInput = (props) => {
   return (
     <StyledDiv>
-      <StyledInput type={props.type} name={props.name} placeholder={props.placeholder} required autocomplete='false' />
+      <StyledInput type={props.type} name={props.name} placeholder={props.placeholder} autocomplete={props.autocomplete} required  />
     </StyledDiv>
   );
 }

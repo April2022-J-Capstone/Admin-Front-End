@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import UserTable from "../tables/UserTable";
 import { AddUserForm, EditUserForm, DeactivateUserForm } from "../forms";
-import { LogoutButton, SendConfirmationButton } from "../components";
-import { GetUserInformation } from "../hooks";
-
+import { NavButton, LogoutButton, SendConfirmationButton } from "../components";
+import { GetUserInformation, useCheckAuth } from "../hooks";
+import UserDisplay from "../tables/UserDisplay";
 
 const UserPage = () => {
+  const checkAuth = useCheckAuth();
   const navigate = useNavigate();
   const [data, loading] = GetUserInformation(0);
   const [users, setUsers] = useState(null);
+  
+  useEffect(_ => {
+    checkAuth({}, false)
+        .catch(_ => navigate('/login'));
+  }, [ checkAuth, navigate ]);
 
   useEffect(() => {
     if(data) {
@@ -34,13 +39,40 @@ const UserPage = () => {
 
 
   const addUser = (user) => {
-    user.id = users[users.length-1].id + 1;
-    setUsers([...users, user]);
-  };
+    if(users.length !== 0){
+      console.log("we have users");
+      user.id = users[users.length-1].id + 1; 
+    } else {
+      console.log("no users");
+      user.id = 1;
+    }
 
-  // const deactivateUser = (id) => {
-  //   setUsers(users.filter((user) => user.id !== id));
-  // };
+    for(const key in user){
+      console.log(`key(${key}): value(${user[key]})`);
+    }
+
+    let vetStatus = false;
+
+    const formattedUser = {
+        id: user.id,
+        enabled: 'true',
+        userName: user.userName,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        phone_number: user.phone_number,
+        birthdate: user.birthdate,
+        veteran_status: vetStatus,
+        email_confirmed: 'false',
+        account_active: 'true',
+      };
+
+    console.log('formattedUser obj');
+    console.log(formattedUser);
+
+    setUsers([...users, formattedUser]);
+
+  };
 
   const [editing, setEditing] = useState(false);
   const [deactivating, setDeactivating] = useState(false);
@@ -73,14 +105,17 @@ const UserPage = () => {
       setEditing(false);
   };
 
-
   return (
     <div>
+      <div className="navbar navbar-dark">
+        <NavButton link="/restaurant" name="restaurant">Restaurants</NavButton>
+        <NavButton link="/user" name="user">Users</NavButton>
+        <LogoutButton onLogout={_ => navigate('/login')} />
+        <SendConfirmationButton onSend={_ => console.log("Successfully sent confirmation!") } />
+      </div>
       <h1>MegaBytes Admin</h1>
-      <LogoutButton onLogout={_ => navigate('/login')} />
-      <SendConfirmationButton onSend={_ => console.log("Successfully sent confirmation!") } />
       <div className="row">
-        <div className="col-md-5">
+        <div className="col-md-3">
           {deactivating ? (
             <div>
               <h2>Set Active</h2>
@@ -107,13 +142,13 @@ const UserPage = () => {
           )}
         </div>
         {loading || !users ? (
-          <div className="col-md-7">
+          <div className="col-md-9">
             <p>Loading...</p>
           </div>
         ): (
-        <div className="col-md-7">
+        <div className="col-md-9">
           <h2>View users</h2>
-          <UserTable
+          <UserDisplay
             users={users}
             deactivatingUser={deactivatingUser}
             editUser={editUser}
@@ -122,7 +157,6 @@ const UserPage = () => {
         )}
       </div>
     </div>
-
   );
 };
 

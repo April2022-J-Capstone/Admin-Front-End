@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import RestaurantTable from "../tables/RestaurantTable";
 import { AddRestaurantForm, EditRestaurantForm, DeactivateUserForm } from "../forms";
-import { GetRestaurantInformation } from "../hooks";
-import { LogoutButton, SendConfirmationButton } from "../components";
-
+import { GetRestaurantInformation, useCheckAuth } from "../hooks";
+import { NavButton, LogoutButton, SendConfirmationButton } from "../components";
+import RestaurantDisplay from "../tables/RestaurantDisplay";
 
 const RestaurantPage = () => {
+  const checkAuth = useCheckAuth();
   const navigate = useNavigate();
   const [data, loading] = GetRestaurantInformation(0);
   const [restaurants, setRestaurants] = useState(null);
 
+  useEffect(_ => {
+    checkAuth({}, false)
+        .catch(_ => navigate('/login'));
+  }, [ checkAuth, navigate ]);
+
   useEffect(() => {
-    if (data) {
+    if(data) {
       const formattedRestaurants = data.map((obj, i) => {
         return {
           id: obj.restaurantId,
@@ -34,7 +39,7 @@ const RestaurantPage = () => {
 
 
   const addRestaurant = (restaurant) => {
-    restaurant.id = restaurants[restaurants.length - 1].id + 1;
+    restaurant.id = restaurants[restaurants.length-1].id + 1;
     setRestaurants([...restaurants, restaurant]);
   };
 
@@ -44,7 +49,7 @@ const RestaurantPage = () => {
 
   const [editing, setEditing] = useState(false);
   const [deactivating, setDeactivating] = useState(false);
-  const initialRestaurant = { id: null, location_id: "", owner_id: "", name: "", location_name: "", address: "", city: "", state: "", zip_code: "", owner_name: "", restaurantTags: [] };
+  const initialRestaurant = { id: null, location_id: "", owner_id:"",  name: "", location_name: "", address: "", city: "", state: "", zip_code: "", owner_name: "", restaurantTags: [] };
   const [currentRestaurant, setCurrentRestaurant] = useState(initialRestaurant);
 
   const editRestaurant = (id, restaurant) => {
@@ -60,24 +65,28 @@ const RestaurantPage = () => {
   const updateDeactivateRestaurant = (oldRestaurant) => {
     setRestaurants(
       restaurants.map(restaurant => (restaurant.id === currentRestaurant.id ? oldRestaurant : restaurant))
-    );
-    setCurrentRestaurant(initialRestaurant);
-    setDeactivating(false);
+      );
+      setCurrentRestaurant(initialRestaurant);
+      setDeactivating(false);
   }
 
   const updateRestaurant = (newRestaurant) => {
     setRestaurants(
       restaurants.map(restaurant => (restaurant.id === currentRestaurant.id ? newRestaurant : restaurant))
-    );
-    setCurrentRestaurant(initialRestaurant);
-    setEditing(false);
+      );
+      setCurrentRestaurant(initialRestaurant);
+      setEditing(false);
   };
 
   return (
     <div>
+      <div className="navbar navbar-dark">
+        <NavButton link="/restaurant" name="restaurant">Restaurants</NavButton>
+        <NavButton link="/user" name="user">Users</NavButton>
+        <LogoutButton onLogout={_ => navigate('/login')} />
+        <SendConfirmationButton onSend={_ => console.log("Successfully sent confirmation!") } />
+      </div>
       <h1>MegaBytes Admin</h1>
-      <LogoutButton onLogout={_ => navigate('/login')} />
-      <SendConfirmationButton onSend={_ => console.log("Successfully sent confirmation!") } />
       <div className="row">
         <div className="col-md-3">
           {deactivating ? (
@@ -89,7 +98,7 @@ const RestaurantPage = () => {
                 updateDeactivateUser={updateDeactivateRestaurant}
               />
             </div>
-          ) : editing ? (
+          ) : editing ? ( 
             <div>
               <h2>Edit Restaurant</h2>
               <EditRestaurantForm
@@ -98,7 +107,7 @@ const RestaurantPage = () => {
                 updateRestaurant={updateRestaurant}
               />
             </div>
-          ) : (
+          ): (
             <div>
               <h2>Add Restaurant</h2>
               <AddRestaurantForm addRestaurant={addRestaurant} />
@@ -109,15 +118,15 @@ const RestaurantPage = () => {
           <div className="col-md-9">
             <p>Loading...</p>
           </div>
-        ) : (
-          <div className="col-md-9">
-            <h2>View restaurants</h2>
-            <RestaurantTable
-              restaurants={restaurants}
-              deactivatingRestaurant={deactivatingRestaurant}
-              editRestaurant={editRestaurant}
-            />
-          </div>
+        ): (
+        <div className="col-md-9">
+          <h2>View restaurants</h2>
+          <RestaurantDisplay
+            restaurants={restaurants}
+            deactivatingRestaurant={deactivatingRestaurant}
+            editRestaurant={editRestaurant}
+          />
+        </div>
         )}
       </div>
     </div>

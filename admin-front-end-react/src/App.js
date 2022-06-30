@@ -6,7 +6,6 @@ import { ConfirmationPage, ForgotPasswordPage, LandingPage, LoginPage, ResetPass
 const App = () => {
   return (
     <div className="container-lg">
-      <div className="navbar navbar-dark"></div>
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<LandingPage/>} />
@@ -18,9 +17,7 @@ const App = () => {
           <Route path="/restaurant" element={<RestaurantPage/>} />
         </Routes>
       </BrowserRouter>
-    </div>
-  );
-
+    </div>);
 };
 
 export default App;
