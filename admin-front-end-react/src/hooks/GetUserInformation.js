@@ -7,7 +7,7 @@ const GetUserInformation = (length) => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        fetch(getUrl("/user-service/user/all"),
+        fetch(getUrl("/user-service/user/allUserInformation"),
             {
               method: "GET",
               headers: new Headers({

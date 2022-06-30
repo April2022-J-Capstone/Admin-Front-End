@@ -8,9 +8,9 @@ const UserDisplayEntry = (props) => {
         <div className="flex-fill"></div>
         <button className="btn btn-primary me-2" onClick={() => props.editUser(props.user.id, props.user)}>Edit</button>
         <button className="btn btn-primary me-2" onClick={() => props.deactivatingUser(props.user.id, props.user)}>{props.activeState}</button>
-        <button className="btn btn-primary" data-bs-toggle="collapse" data-bs-target={"#user-" + props.user.userName}>Expand</button>
+        <button className="btn btn-primary" data-bs-toggle="collapse" data-bs-target={"#user-" + props.user.id}>Expand</button>
       </div>
-      <div className="card-body collapse" id={"user-" + props.user.userName}>
+      <div className="card-body collapse" id={"user-" + props.user.id}>
         <div className="d-flex flex-wrap justify-content-center">
           <p className="p-2"><b>ID:</b> {props.user.id}</p>
           <p className="p-2"><b>Enabled:</b> {props.user.enabled}</p>

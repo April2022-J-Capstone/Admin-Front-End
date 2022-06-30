@@ -14,7 +14,7 @@ const UserDisplay = (props) => {
           ? usersEmpty : 
           props.users.map(user => (
             <UserDisplayEntry 
-            key = {user.userName}
+            key = {user.id}
             user = {user}
             editUser = {props.editUser}
             deactivatingUser = {props.deactivatingUser}
