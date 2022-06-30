@@ -12,6 +12,8 @@ const RestaurantDisplay = (props) => {
               key = {restaurant.id}
               restaurant = {restaurant}
               editRestaurant = {props.editRestaurant}
+              activeState = {restaurant.enabled === "true" ? "Deactivate" : "Activate"}
+              deactivatingRestaurant = {props.deactivatingRestaurant}
               />
             )
           })

@@ -109,8 +109,11 @@ const DeactivateUserForm = (props) => {
                     <input className="u-full-width" id ="activateUser" type="text" value={confirmUserName} name="activateUser" placeholder="Type Username" onChange={handleChange} />
                 </div>
             )}
-            <button className="button-primary" id="submitButton" type="submit" onClick={handleSubmit}  style={{ opacity: 0.2 }} disabled={disabledStatus} >{activeState} User</button>
-            <button type="submit"  onClick={() => props.setDeactivating(false)} >Cancel</button>
+            <div className='d-flex'>
+              <button className="button-primary" id="submitButton" type="submit" onClick={handleSubmit}  style={{ opacity: 0.2 }} disabled={disabledStatus} >{activeState} User</button>
+              <div className='flex-fill'></div>
+              <button type="submit"  onClick={() => props.setDeactivating(false)} >Cancel</button>
+            </div>
         </form>
     )
 }

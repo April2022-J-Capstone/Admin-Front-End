@@ -17,7 +17,8 @@ const App = () => {
           <Route path="/restaurant" element={<RestaurantPage/>} />
         </Routes>
       </BrowserRouter>
-    </div>);
+    </div>
+  );
 };
 
 export default App;
