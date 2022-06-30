@@ -1,5 +1,5 @@
 import React from "react";
-import UserDisplayEntry from "../Components/UserDisplayEntry";
+import UserDisplayEntry from "../components/UserDisplayEntry";
 
 const UserDisplay = (props) => {
   let activeState = "";

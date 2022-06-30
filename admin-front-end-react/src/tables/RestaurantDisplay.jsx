@@ -1,5 +1,5 @@
 import React from "react";
-import RestaurantDisplayEntry from "../Components/RestaurantDisplayEntry";
+import RestaurantDisplayEntry from "../components/RestaurantDisplayEntry";
 
 const RestaurantDisplay = (props) => {
   return (
