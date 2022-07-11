@@ -151,8 +151,12 @@ const EditUserForm = (props) => {
             <option  value = {currentEmailConfirmedStatus}>{currentEmailConfirmedStatus}</option>
             <option value = {oppositeEmailConfirmedStatus}>{oppositeEmailConfirmedStatus}</option>
         </select>
-        <button className="button-primary" id="submitButton" type="submit" onClick={handleSubmit} >Save user</button>
-        <button type="submit" onClick={() => props.setEditing(false)} >Cancel</button>
+        <div className='d-flex'>
+          <button className="button-primary" id="submitButton" type="submit" onClick={handleSubmit} >Save user</button>
+          <div className='flex-fill'></div>
+          <button type="submit" onClick={() => props.setEditing(false)} >Cancel</button>
+        </div>
+        
     </form>
     )
 }

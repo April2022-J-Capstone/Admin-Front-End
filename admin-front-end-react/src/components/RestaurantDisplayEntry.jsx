@@ -7,6 +7,7 @@ const RestaurantDisplayEntry = (props) => {
         <h5 className="m-0">{props.restaurant.name}</h5>
         <div className="flex-fill"></div>
         <button className="btn btn-primary me-2" onClick={() => props.editRestaurant(props.restaurant.id, props.restaurant)}>Edit</button>
+        <button className="btn btn-primary me-2" onClick={() => props.deactivatingRestaurant(props.restaurant.id, props.restaurant)}>{props.activeState}</button>
         <button className="btn btn-primary" data-bs-toggle="collapse" data-bs-target={"#restaurant-" + props.restaurant.id}>Expand</button>
       </div>
       <div className="card-body collapse" id={"restaurant-" + props.restaurant.id}>
@@ -20,6 +21,7 @@ const RestaurantDisplayEntry = (props) => {
           <p className="p-2"><b>State:</b> {props.restaurant.state}</p>
           <p className="p-2"><b>ZIP Code:</b> {props.restaurant.zip_code}</p>
           <p className="p-2"><b>Tags:</b> {props.restaurant.restaurantTags.join(', ')}</p>
+          <p className="p-2"><b>Enabled:</b> {props.restaurant.enabled}</p>
         </div>
       </div>
     </div>

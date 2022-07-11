@@ -134,13 +134,13 @@ const AddUserForm = (props) => {
     return(
         <form>
             <label htmlFor="userName">Username</label>
-            <input className="u-full-width form-control" id="userName" type="text" value={user.userName} name="userName" placeholder="Enter at least 4 characters" onChange={handleChange} />
+            <input className="u-full-width" id="userName" type="text" value={user.userName} name="userName" placeholder="Enter at least 4 characters" onChange={handleChange} />
             <label>FirstName</label>
             <input className="u-full-width" id="first_name" type="text" value={user.first_name} name="first_name" placeholder = "First Name" onChange={handleChange} />
             <label>LastName</label>
             <input className="u-full-width" id="last_name" type="text" value={user.last_name} name="last_name" placeholder = "Last Name"  onChange={handleChange} />
             <label htmlFor="email">Email</label>
-            <input className="u-full-width form-control" id="email" type="email" value={user.email} name="email" placeholder = "user@mail.com"  onChange={handleChange} />
+            <input className="u-full-width" id="email" type="email" value={user.email} name="email" placeholder = "user@mail.com"  onChange={handleChange} />
             <label>PhoneNumber</label>
             <input className="u-full-width" id="phone_number" type="text"  value={user.phone_number}  name="phone_number" placeholder = "###-###-####" onChange={handleChange} />
             <label>BirthDate</label>

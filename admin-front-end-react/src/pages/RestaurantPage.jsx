@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { AddRestaurantForm, EditRestaurantForm, DeactivateUserForm } from "../forms";
+import { AddRestaurantForm, EditRestaurantForm, DeactivateRestaurantForm } from "../forms";
 import { GetRestaurantInformation, useCheckAuth } from "../hooks";
 import { NavButton, LogoutButton, SendConfirmationButton } from "../components";
 import RestaurantDisplay from "../tables/RestaurantDisplay";
@@ -31,6 +31,7 @@ const RestaurantPage = () => {
           zip_code: obj.zip_code,
           owner_name: obj.owner_name,
           restaurantTags: obj.restaurantTags,
+          enabled: obj.enabled + "",
         };
       });
       setRestaurants(formattedRestaurants);
@@ -49,7 +50,7 @@ const RestaurantPage = () => {
 
   const [editing, setEditing] = useState(false);
   const [deactivating, setDeactivating] = useState(false);
-  const initialRestaurant = { id: null, location_id: "", owner_id:"",  name: "", location_name: "", address: "", city: "", state: "", zip_code: "", owner_name: "", restaurantTags: [] };
+  const initialRestaurant = { id: null, location_id: "", owner_id:"",  name: "", location_name: "", address: "", city: "", state: "", zip_code: "", owner_name: "", restaurantTags: [], enabled: "" };
   const [currentRestaurant, setCurrentRestaurant] = useState(initialRestaurant);
 
   const editRestaurant = (id, restaurant) => {
@@ -92,10 +93,10 @@ const RestaurantPage = () => {
           {deactivating ? (
             <div>
               <h2>Set Active</h2>
-              <DeactivateUserForm
-                currentUser={currentRestaurant}
+              <DeactivateRestaurantForm
+                currentRestaurant={currentRestaurant}
                 setDeactivating={setDeactivating}
-                updateDeactivateUser={updateDeactivateRestaurant}
+                updateDeactivateRestaurant={updateDeactivateRestaurant}
               />
             </div>
           ) : editing ? ( 

@@ -28,22 +28,6 @@ const AddRestaurantForm = (props) => {
       console.log('e.target.name: ' + name);
       console.log('e.target.value: ' + value);
 
-      /*
-      // input validation
-      let validInputs = 0;
-      let button = document.getElementById('submitButton');
-      let userNameInput = document.getElementById('userName');
-      let first_nameInput = document.getElementById('first_name');
-      let last_nameInput = document.getElementById('first_name');
-      let emailInput = document.getElementById('email');
-      // let phone_numberInput = document.getElementById('phone_number');
-      let birthdateInput = document.getElementById('birthdate');
-      let veteranCheckbox = document.getElementById('veteranCheckBox');
-      console.log(veteranCheckbox);
-      let emailConfirmedCheckBox = document.getElementById('emailConfirmedCheckBox');
-      console.log(emailConfirmedCheckBox);
-      */
-
       switch(name){
         case 'name':
           setName(value);
@@ -70,33 +54,6 @@ const AddRestaurantForm = (props) => {
           console.log("Not a valid input option. Please try again.")
       }
 
-
-      /*
-      if(userNameInput.value > 3)
-        validInputs++;
-
-      if(first_nameInput.value != '')
-        validInputs++;
-
-      if(last_nameInput.value != '')
-        validInputs++;
-
-      if(emailInput.value != '')
-        for(let s of emailInput.value){
-          if(s == '@')
-          validInputs++;
-        }
-
-      if(birthdateInput.value != '')
-        validInputs++;
-
-      if(validInputs > 3){
-        console.log('validInputs = green')
-        button.style.backgroundColor = "Green";
-        button.disabled = false;
-      }
-      */
-      // console.log('validInputs', validInputs);
       setRestaurant({...restaurant, [name]: value});
     }
     
@@ -144,7 +101,7 @@ const AddRestaurantForm = (props) => {
             <label>Owner Id</label>
             <input className="u-full-width" id="owner_id" type="text" value={restaurant.owner_id} name="owner_id" placeholder = "Owner User ID"  onChange={handleChange} />
 
-            <button className="button-primary" id="submitButton" type="submit" style={{ backgroundColor: 'red' }}  onClick={handleSubmit}  >Add Restaurant</button>
+            <button className="button-primary" id="submitButton" type="submit" onClick={handleSubmit}  >Add Restaurant</button>
         </form>    
     )
 }
