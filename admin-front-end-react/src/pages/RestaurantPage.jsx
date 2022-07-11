@@ -50,7 +50,7 @@ const RestaurantPage = () => {
 
   const [editing, setEditing] = useState(false);
   const [deactivating, setDeactivating] = useState(false);
-  const initialRestaurant = { id: null, location_id: "", owner_id:"",  name: "", location_name: "", address: "", city: "", state: "", zip_code: "", owner_name: "", restaurantTags: [] };
+  const initialRestaurant = { id: null, location_id: "", owner_id:"",  name: "", location_name: "", address: "", city: "", state: "", zip_code: "", owner_name: "", restaurantTags: [], enabled: "" };
   const [currentRestaurant, setCurrentRestaurant] = useState(initialRestaurant);
 
   const editRestaurant = (id, restaurant) => {

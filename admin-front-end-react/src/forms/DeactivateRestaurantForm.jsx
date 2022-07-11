@@ -71,16 +71,25 @@ const DeactivateRestaurantForm = (props) => {
         if (restaurant.name) props.updateDeactivateRestaurant(restaurant);
         const data = { restaurant_id: restauarant_id, name: name, enabled };
         console.log('change restaurant status', data);
+
+        let path = "";
+
+        if (enabled) {
+            path = "/restaurant-service/restaurant/enable/" + restauarant_id;
+        }
+        else {
+            path = "/restaurant-service/restaurant/disable/" + restauarant_id;
+        }
         
-        /*axios
-            .put(getUrl("/restaurant-service/restaurant/" + restauarant_id), {
+        console.log(path);
+        axios
+            .put(getUrl(path), {
                 id: data.restaurant_id,
                 name: data.name,
                 enabled: data.enabled,
-            })*/
-        console.log("Activate functionality when deactivate endpoint is present.")
+            });
 
-        window.location.reload();
+        //window.location.reload();
     }
 
     return (
